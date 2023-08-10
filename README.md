@@ -41,7 +41,7 @@ If everything is fine, then you will see similar screen
 <img width="768" alt="image" src="https://github.com/2Bye/mlops_asr/assets/45552093/be077ab5-a7e7-43d3-a765-f7a9c5180db4">
 
 
-### Container for TG and FastAPI
+### Container for FastAPI
 
 Using DockerFile inside the project run the command
 
