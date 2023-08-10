@@ -4,11 +4,15 @@ P.S.
 
 This project is a test task. The goal of the project is to show how the problem can be approached. Quality and results have a lower priority
 
+______________________________________
+
 ## Requirements
 
 1. Triton Inference Server with ASR model (container)
 2. FastAPI service, which processes the incoming audio, converts it to tensors, sends it to inference, and generates the response text. (container)
 3. Telegram Bot. To record a voice message, we receive its transcript
+
+______________________________________
 
 ### ML Design
 
@@ -18,7 +22,9 @@ ______________________________________
 
 ### ML System design
 
-![Service_ASR_more-2](https://github.com/2Bye/mlops_asr/assets/45552093/a38b723e-cfa1-48e3-bcd0-ccdeca4d3c05)
+![Service_ASR_more-3](https://github.com/2Bye/mlops_asr/assets/45552093/f48cb577-55db-4576-a5dc-b98b8bc61b8b)
+
+______________________________________
 
 ### Start
 
@@ -75,13 +81,15 @@ pip install -r req_for_tg.txt
 ```
 python main.py
 ```
+______________________________________
 
 ### Quick Start
 
 To quickly start the service, run the bash script
 
 ```sh start.sh```
-<!-- #endregion -->
+
+______________________________________
 
 ### Что можно улучшить исправить и тд
 
