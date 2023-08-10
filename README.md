@@ -105,7 +105,3 @@ CMD [ "python", "main.py"]
 ```
 
 8. Можно использовать guvicorn вместо uvicorn
-
-```python
-
-```
