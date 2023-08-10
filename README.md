@@ -12,14 +12,13 @@ This project is a test task. The goal of the project is to show how the problem 
 
 ### ML Design
 
-![image.png](attachment:image.png)
+![Service_ASR-2](https://github.com/2Bye/mlops_asr/assets/45552093/f9b63b88-a56e-41e5-a191-350c256b1fa2)
 
 ______________________________________
 
 ### ML System design
 
-![image-3.png](attachment:image-3.png)
-
+![Service_ASR_more-2](https://github.com/2Bye/mlops_asr/assets/45552093/a38b723e-cfa1-48e3-bcd0-ccdeca4d3c05)
 
 ### Start
 
@@ -28,48 +27,57 @@ ______________________________________
 You can create Triton Inference Server with command:
 
 ```
-docker run -it --rm --detach -p 8000:8000 -p 8001:8001 -p 8002:8002 -v "$PWD"/model_repository:/models nvcr.io/nvidia/tritonserver:23.07-py3 tritonserver --model-repository=/models```
-
+docker run -it --rm --detach -p 8000:8000 -p 8001:8001 -p 8002:8002 -v "$PWD"/model_repository:/models nvcr.io/nvidia/tritonserver:23.07-py3 tritonserver --model-repository=/models
+```
 
 If everything is fine, then you will see similar screen
 
-![image.png](attachment:image.png)
+<img width="768" alt="image" src="https://github.com/2Bye/mlops_asr/assets/45552093/be077ab5-a7e7-43d3-a765-f7a9c5180db4">
 
-#### Container for TG and FastAPI
 
-Используя DockerFile внутри проекта запутить команду
+### Container for TG and FastAPI
 
-```docker build -t fastapi_container .```
+Using DockerFile inside the project run the command
+
+```
+docker build -t fastapi_container .
+```
 
 <!-- #region -->
-#### Start Container for FastAPI and Triton Inference Server
+### Start Container for FastAPI and Triton Inference Server
 
-Для того чтобы запустить контейнеры нужно выполнить следующие действия
+To run containers, follow these steps:
 
+1. Launching the container for FastAPI
 
-1. Запускаем котейнер для FastAPI
+```
+docker run --name fastapi_tg --rm --detach -p 5454:5454 --network host fastapi_container:latest
+```
 
-```docker run --name fastapi_tg --rm --detach -p 5454:5454 --network host fastapi_container:latest```
+2. Launching the container for Triton
 
-2. Запускаем Тритон
-
-```docker run --name triton --rm --detach --network host -p 8000:8000 -p 8001:8001 -p 8002:8002 -v "$PWD"/model_repository:/models nvcr.io/nvidia/tritonserver:23.07-py3 tritonserver --model-repository=/models```
+```docker run --name triton --rm --detach --network host -p 8000:8000 -p 8001:8001 -p 8002:8002 -v "$PWD"/model_repository:/models nvcr.io/nvidia/tritonserver:23.07-py3 tritonserver --model-repository=/models
+```
 
 #### Start Telegram Bot
 
-Нужно создать файл **config.py** в папке **telegram_bot**. Пример конфига лежит там же : **telegram_bot/config_example.py**
+You need to create a **config.py** file in the **telegram_bot** folder. An example of a config is in the same place: **telegram_bot/config_example.py**
 
-1. Нужно установить пакеты
+1. Need to install packages
 
-```pip install -r req_for_tg.txt```
+```
+pip install -r req_for_tg.txt
+```
 
-2. Далее из корня запустить
+2. Next from the root run
 
-```python main.py```
+```
+python main.py
+```
 
 ### Quick Start
 
-Для быстрого запуска сервиса запустите баш скрипт
+To quickly start the service, run the bash script
 
 ```sh start.sh```
 <!-- #endregion -->
