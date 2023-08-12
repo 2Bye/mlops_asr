@@ -14,8 +14,8 @@ def get_audio(audio_bytes : str) -> str:
         audio_name: wav path
     """
     audio_name = ''.join(random.choices(string.ascii_lowercase, k=6))
-    # audio_name = f'fast_api_module/audio/{audio_name}'
-    audio_name = f'audio/{audio_name}'
+    audio_name = f'fast_api_module/audio/{audio_name}'
+    # audio_name = f'audio/{audio_name}'
     audio_name_ogg = audio_name + '.ogg'
     audio_name_wav = audio_name + '.wav'
     decoded = base64.b64decode(audio_bytes)
