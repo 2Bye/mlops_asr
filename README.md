@@ -6,7 +6,7 @@ This project is a test task. The goal of the project is to show how the problem 
 
 ______________________________________
 
-## Requirements
+## Task
 
 1. Triton Inference Server with ASR model (container)
 2. FastAPI service, which processes the incoming audio, converts it to tensors, sends it to inference, and generates the response text. (container)
@@ -16,13 +16,13 @@ ______________________________________
 
 ### ML Design
 
-![Service_ASR-2](https://github.com/2Bye/mlops_asr/assets/45552093/f9b63b88-a56e-41e5-a191-350c256b1fa2)
+![ml_design](https://github.com/2Bye/mlops_asr/assets/45552093/30251b35-92b9-4ef8-99cb-04c05cc054d3)
 
 ______________________________________
 
 ### ML System design
 
-![Service_ASR_more-3](https://github.com/2Bye/mlops_asr/assets/45552093/f48cb577-55db-4576-a5dc-b98b8bc61b8b)
+![system_design](https://github.com/2Bye/mlops_asr/assets/45552093/28240199-26f0-4918-8589-b2121b174f82)
 
 ______________________________________
 
@@ -35,11 +35,6 @@ You can create Triton Inference Server with command:
 ```
 docker run -it --rm --detach -p 8000:8000 -p 8001:8001 -p 8002:8002 -v "$PWD"/model_repository:/models nvcr.io/nvidia/tritonserver:23.07-py3 tritonserver --model-repository=/models
 ```
-
-If everything is fine, then you will see similar screen
-
-<img width="768" alt="image" src="https://github.com/2Bye/mlops_asr/assets/45552093/be077ab5-a7e7-43d3-a765-f7a9c5180db4">
-
 
 ### Container for FastAPI
 
@@ -91,25 +86,14 @@ To quickly start the service, run the bash script
 
 ______________________________________
 
-### Что можно улучшить исправить и тд
+### What can be improved or fixed
 
-1. Добавить логгирование в каждом модуле. 
-2. Если Телеграм и ФастАПИ будут находится в одном сервисе (как у меня), то можно не писать на диск аудиофайл на этапе Телеграма и на этапе ФастАПИ. Я записывал их для отладки. 
-3. Написать тесты/unit-tests
-4. Уменьшить размеры docker image для сервисов (удалить кеш например)
-5. Возможно есть способы более грамотные для извлечения нужных модулей из ASR модели 
-(файл : fast_api_module/utils/ASR_modules.py, функция : get_modules)
-6. Сократить Рекваеры для FastAPI
-7. Пробовал собрать докер вместе с Телеграмом. Докер собирается, однако run uvicorn у меня не работал. Были проблемы с Соединением к FastAPI серверу. Поэтому остановился на варианте, который описан в репозитории
-
-DockerFile для билда одного контейнера с телегой
-```
-FROM python:3.8.11-bullseye
-WORKDIR app
-COPY fast_api_module .
-RUN pip install -r requirements.txt
-EXPOSE 5454
-CMD [ "python", "main.py"]
-```
-
-8. Можно использовать guvicorn вместо uvicorn
+1. Add logging in each module.
+2. Do not write an audio file to disk at the Telegram stage and at the FastAPI stage. I wrote them down for debugging.
+3. Write tests/unit-tests
+4. Reduce the size of the docker image for services (delete the cache for example)
+5. Perhaps there are more competent ways to extract the necessary modules from the ASR model
+(file: fast_api_module/utils/ASR_modules.py, function: get_modules)
+6. Reduce Requirers for FastAPI
+7. You can use guvicorn instead of uvicorn
+8. Make another newt server for CTCDecoder to extract text
